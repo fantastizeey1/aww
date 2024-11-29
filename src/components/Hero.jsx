@@ -116,6 +116,7 @@ const Hero = () => {
                 <video
                   ref={nextVdRef}
                   src={getVideoSrc((currentIndex % totalVideos) + 1)}
+                  preload="auto"
                   loop
                   muted
                   id="current-video"
