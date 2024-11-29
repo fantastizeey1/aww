@@ -3,10 +3,21 @@ import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { AiOutlineHome, AiOutlineInfoCircle } from "react-icons/ai";
+import { FaRegLightbulb } from "react-icons/fa";
+import { FiPhoneCall } from "react-icons/fi";
 
 import Button from "./Button";
+import { MdHistoryEdu } from "react-icons/md";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+// Nav items with icons
+const navItems = [
+  { name: "Nexus", icon: <AiOutlineHome /> },
+  { name: "Features", icon: <FaRegLightbulb /> },
+  { name: "Story", icon: <MdHistoryEdu /> },
+  { name: "About", icon: <AiOutlineInfoCircle /> },
+  { name: "Contact", icon: <FiPhoneCall /> },
+];
 
 const NavBar = () => {
   // State for toggling audio and visual indicator
@@ -38,15 +49,12 @@ const NavBar = () => {
 
   useEffect(() => {
     if (currentScrollY === 0) {
-      // Topmost position: show navbar without floating-nav
       setIsNavVisible(true);
       navContainerRef.current.classList.remove("floating-nav");
     } else if (currentScrollY > lastScrollY) {
-      // Scrolling down: hide navbar and apply floating-nav
       setIsNavVisible(false);
       navContainerRef.current.classList.add("floating-nav");
     } else if (currentScrollY < lastScrollY) {
-      // Scrolling up: show navbar with floating-nav
       setIsNavVisible(true);
       navContainerRef.current.classList.add("floating-nav");
     }
@@ -83,14 +91,29 @@ const NavBar = () => {
 
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center">
+            {/* Desktop Links */}
             <div className="hidden md:block">
               {navItems.map((item, index) => (
                 <a
                   key={index}
-                  href={`#${item.toLowerCase()}`}
+                  href={`#${item.name.toLowerCase()}`}
                   className="nav-hover-btn"
                 >
-                  {item}
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile Icons */}
+            <div className="flex space-x-6 md:hidden">
+              {navItems.map((item, index) => (
+                <a
+                  key={index}
+                  href={`#${item.name.toLowerCase()}`}
+                  className="text-xl text-white "
+                  aria-label={item.name}
+                >
+                  {item.icon}
                 </a>
               ))}
             </div>
