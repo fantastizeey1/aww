@@ -28,7 +28,7 @@ const Hero = () => {
     // Set a timer to stop loading after 5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 10000);
 
     // Check if all videos are loaded
     if (loadedVideos === totalVideos - 1) {
