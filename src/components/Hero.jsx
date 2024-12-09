@@ -25,10 +25,19 @@ const Hero = () => {
   };
 
   useEffect(() => {
+    // Set a timer to stop loading after 5 seconds
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    // Check if all videos are loaded
     if (loadedVideos === totalVideos - 1) {
       setLoading(false);
     }
-  }, [loadedVideos]);
+
+    // Cleanup function to clear the timer
+    return () => clearTimeout(timer);
+  }, [loadedVideos, totalVideos]); // Dependencies for useEffect
 
   // 0 % 4 = 0 + 1 = 1
   // 1 % 4 = 1 + 1 = 2
@@ -92,7 +101,7 @@ const Hero = () => {
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden" id="Nexus">
       {loading && (
-        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+        <div className="flex-center absolute z-[100] h-[50%] md:h-dvh w-[50%] md:w-screen overflow-hidden bg-violet-50">
           {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
           <div className="three-body">
             <div className="three-body__dot"></div>
